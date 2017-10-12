@@ -9,13 +9,15 @@
   
   <!-- poner las clases -->
   <class>modelo.Empleado</class>
-  
+   <class>modelo.Autor</class>
+    <class>modelo.Libro</class>
   
   
   <!-- parametros de conexion a base datos -->
     <properties>
         <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />
+        <!-- GUARDA DATOS EN MEMORIA  --><property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" /> 
+            <!-- PARA USARLO EN UN ARCHIVO <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/test" /> -->
         <property name="javax.persistence.jdbc.user" value="sa" />
         <property name="javax.persistence.jdbc.password" value="" />
         <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

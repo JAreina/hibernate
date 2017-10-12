@@ -8,9 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import modelo.Direccion;
 import modelo.Empleado;
 
-public class TestEmpleado {
+public class TestEmpleado2 {
 
 	
 	//en java ee web
@@ -26,36 +27,26 @@ public class TestEmpleado {
 	
 	public static void main(String[]args){
 	  // CREAR EL GESTOR DE PERSISTENCIA (EM)
-		
-	    manager = emf.createEntityManager();
-	    insertarInicial();
-
-		 imprimirTodo();
+	
+	     manager = emf.createEntityManager();
+	     Empleado e = new Empleado(10L,"Sanchez","Juan",LocalDate.of(1980, 11, 23));
+	     
+	     //RELACION UNO A UNO EMPLEADO A ENTIDAD DIRECCION
+	     e.setDireccion(new Direccion(11L,"calle","localidad","provincia","pais",e));
+		 
 	  
 	 manager.getTransaction().begin();
 	 
-	 Empleado e = manager.find(Empleado.class, 10L);
-	 e.setNombre("María");
-	 e.setApellidos("España");
+
+	
+	 manager.persist(e);
+		 
 	 
-	 
-	 imprimirTodo();	 
-	 manager.remove(e);
 	 manager.getTransaction().commit();
 	
+	 manager.close();
+	 
 	 imprimirTodo();
-	 manager.close();
-	 
-	 manager = emf.createEntityManager();
-	 manager.getTransaction().begin();
-	 e.setApellidos("eeeeeeeeeeeee");
-	 //e =manager.merge(e);
-	 //e.setApellidos("APELLIDO");
-	
-	 
-	 manager.getTransaction().commit();
-	 manager.close();
-    imprimirTodo();	 
 	}
 	
 	
