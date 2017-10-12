@@ -21,7 +21,11 @@ public class Autor {
 	@Column(name="NACIONALIDAD")
 	private String nacionalidad;
 
-    @OneToMany(mappedBy ="autor",cascade= CascadeType.ALL)
+	
+	
+	
+	// para cargar de forma eager  : fetch = FetchType.EAGER
+    @OneToMany(mappedBy ="autor",cascade= CascadeType.ALL) //lista por defecto tipo lazy
 	private List<Libro> libros = new ArrayList<>();
 
 	public Autor(){}

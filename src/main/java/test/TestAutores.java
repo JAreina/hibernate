@@ -1,5 +1,7 @@
 package test;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -34,9 +36,11 @@ public class TestAutores {
 		em.persist(a2);
         em.persist(a3);
         
-		Libro libro1 = new Libro (1L,"titulo1",a3);
-		Libro libro2 = new Libro (2L,"titulo1",a1);
-		Libro libro3 = new Libro (3L,"titulo1",a2);
+		em.persist(new Libro (1L,"titulo1",a3));
+		em.persist(new Libro (2L,"titulo2",a1));
+		em.persist( new Libro (3L,"titulo3",a2));
+		em.persist( new Libro (4L,"titulo4",a2));
+		em.persist( new Libro (5L,"titulo5",a2));
 		em.getTransaction().commit();
 		
 		
@@ -52,8 +56,14 @@ public class TestAutores {
 		Autor a2 = em.find(Autor.class, 2L);
 		System.out.println(a2);
 	
+	List<Libro> libros = a2.getLibros();
 	
-		em.close();
+	libros.size(); // solucion para que no falle al cerrar cargando en lazy
+	em.close();// cerrar al final porque esta cargando una colleccion lazy
+	for(Libro l: libros){
+		System.out.println(l);
+	}
+		
 	}
 
 }
