@@ -1,5 +1,6 @@
 package test;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -28,8 +29,29 @@ public class TestEmpleado {
 	    manager = emf.createEntityManager();
 	    
 	    
-	   List<Empleado> empleados= (List<Empleado>) manager.createQuery("FROM Empleado").getResultList();
+	  
+	 
+	 
+	 Empleado e = new Empleado(10L,"Sanchez","Juan",new GregorianCalendar(1980, 11, 23).getTime());
 	
-	 System.out.println("hay " +empleados.size());
+	//transaccion
+	 manager.getTransaction().begin();
+	 manager.persist(e);
+	 manager.getTransaction().commit();
+	
+	 imprimirTodo();
+	 
 	}
+
+ private static void imprimirTodo(){
+	 
+	 List<Empleado> empleados= (List<Empleado>) manager.createQuery("FROM Empleado").getResultList();
+		
+		System.out.println("hay " +empleados.size());
+		
+		for(Empleado emp: empleados){
+			System.out.println(emp);
+		}
+ }
 }
+
